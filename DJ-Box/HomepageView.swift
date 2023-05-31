@@ -10,10 +10,9 @@ import SwiftUI
 struct HomepageView: View {
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 100)
-            .fill(Color.black)
-            .offset(x: 0.50, y: 395.50)
-            .frame(width: 134, height: 5)
+                Color(red: 23/255, green: 22/255, blue: 46/255)
+                   .ignoresSafeArea()
+        
 
             ZStack {
             Group {

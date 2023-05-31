@@ -8,8 +8,32 @@
 import SwiftUI
 
 struct FilterView: View {
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            ZStack {
+                Color(red: 23/255, green: 22/255, blue: 46/255)
+                    .ignoresSafeArea()
+                VStack(alignment: .leading) {
+                    Text("場景")
+                    Text("時長")
+                    Text("情緒")
+                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(12)
+                .shadow(radius: 4)
+                .padding(.vertical)
+            }
+            .navigationTitle("filter")
+            .toolbar {
+                Button(action: {
+                    print("show menu")
+                }) {
+                    Label("Toggle Sidebar", systemImage: "line.3.horizontal.circle.fill")
+                }
+            }
+        }
     }
 }
 
