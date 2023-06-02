@@ -59,16 +59,14 @@ struct FilterView: View {
                         HStack {
                             OccasionButtonView(occasion: .wedding, selectedOccasion: $selectedOccasion)
                             OccasionButtonView(occasion: .gathering, selectedOccasion: $selectedOccasion)
-                            OccasionButtonView(occasion: .sports, selectedOccasion: $selectedOccasion)
-                            OccasionButtonView(occasion: .resturant, selectedOccasion: $selectedOccasion)
+                            OccasionButtonView(occasion: .seminar, selectedOccasion: $selectedOccasion)
                             
                             
                         }
                         HStack {
+                            OccasionButtonView(occasion: .coffee, selectedOccasion: $selectedOccasion)
                             OccasionButtonView(occasion: .awards, selectedOccasion: $selectedOccasion)
                             OccasionButtonView(occasion: .graduation, selectedOccasion: $selectedOccasion)
-                            OccasionButtonView(occasion: .seminar, selectedOccasion: $selectedOccasion)
-                            
                         }
                         HStack{
                             OccasionButtonView(occasion: .sports, selectedOccasion: $selectedOccasion)
@@ -188,7 +186,7 @@ enum Occasion: String, CaseIterable {
     case awards = "頒獎典禮"
     case graduation = "畢業典禮"
     case gathering = "聚會"
-    case resturant = "餐廳"
+    case coffee = "咖啡廳"
     case seminar = "講座"
     case sports = "運動會"
     case company = "公司活動"
