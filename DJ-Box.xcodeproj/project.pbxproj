@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7039C4E42A2C887100126FB2 /* LoadingView.swift */; };
 		708AA34C2A2088E500B80334 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA34B2A2088E500B80334 /* LoginView.swift */; };
 		708AA3BC2A20A41600B80334 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3BB2A20A41600B80334 /* SignupView.swift */; };
 		708AA3BE2A20A49400B80334 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3BD2A20A49400B80334 /* ThemeView.swift */; };
 		708AA3C02A20AFCE00B80334 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3BF2A20AFCE00B80334 /* HomepageView.swift */; };
 		708AA3C22A20B01B00B80334 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3C12A20B01B00B80334 /* FilterView.swift */; };
+		7098D4E72A2DFC0D00E8AE54 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098D4E62A2DFC0D00E8AE54 /* SideMenu.swift */; };
+		7098D4E92A2E070B00E8AE54 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098D4E82A2E070B00E8AE54 /* ListView.swift */; };
 		CDB0F3EB2A1DA7BC0055858B /* DJ_BoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0F3EA2A1DA7BC0055858B /* DJ_BoxApp.swift */; };
 		CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */; };
 		CDB0F3EF2A1DA7BD0055858B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */; };
@@ -19,11 +22,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7039C4E42A2C887100126FB2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		708AA34B2A2088E500B80334 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		708AA3BB2A20A41600B80334 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		708AA3BD2A20A49400B80334 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		708AA3BF2A20AFCE00B80334 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
 		708AA3C12A20B01B00B80334 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		7098D4E62A2DFC0D00E8AE54 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		7098D4E82A2E070B00E8AE54 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		CDB0F3E72A1DA7BC0055858B /* DJ-Box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DJ-Box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB0F3EA2A1DA7BC0055858B /* DJ_BoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJ_BoxApp.swift; sourceTree = "<group>"; };
 		CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +73,9 @@
 				708AA3BD2A20A49400B80334 /* ThemeView.swift */,
 				708AA3BF2A20AFCE00B80334 /* HomepageView.swift */,
 				708AA3C12A20B01B00B80334 /* FilterView.swift */,
+				7098D4E82A2E070B00E8AE54 /* ListView.swift */,
+				7098D4E62A2DFC0D00E8AE54 /* SideMenu.swift */,
+				7039C4E42A2C887100126FB2 /* LoadingView.swift */,
 				CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */,
 				CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */,
 				CDB0F3F02A1DA7BD0055858B /* Preview Content */,
@@ -157,6 +166,9 @@
 				708AA3BC2A20A41600B80334 /* SignupView.swift in Sources */,
 				708AA34C2A2088E500B80334 /* LoginView.swift in Sources */,
 				CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */,
+				7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */,
+				7098D4E72A2DFC0D00E8AE54 /* SideMenu.swift in Sources */,
+				7098D4E92A2E070B00E8AE54 /* ListView.swift in Sources */,
 				708AA3BE2A20A49400B80334 /* ThemeView.swift in Sources */,
 				CDB0F3EB2A1DA7BC0055858B /* DJ_BoxApp.swift in Sources */,
 			);

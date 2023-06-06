@@ -15,23 +15,42 @@ struct FilterView: View {
     @State private var selectedHour = 0
     @State private var selectedMinute = 0
     @State private var selectedSecond = 0
-
+    @State private var selectedReset = 0
+    @State private var selectedNext = 0
+    @State private var showLoadingView = false
+    @State private var showMenu: Bool = false
+    @State var offset: CGFloat = 0
+    @State var lastStoredoffset: CGFloat = 0
+    
     var body: some View {
+        //let sideBarWidth = getRect().width - 90
         NavigationView{
             ZStack {
                 Color(red: 23/255, green: 22/255, blue: 46/255)
                     .ignoresSafeArea()
                 
                 VStack {
+                    
                     HStack {
                         Button(action: {
-                            // action
+                            self.showMenu.toggle()
                         }, label: {
-                            Image(systemName: "line.3.horizontal")
-                                .font(.system(size: 35))
-                                .foregroundColor(.white)
-                                .padding()
+                            if showMenu{
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 35))
+                                    .foregroundColor(.white)
+                                    .padding()
+                            } else{
+                                Image(systemName: "line.3.horizontal")
+                                    .font(.system(size: 35))
+                                    .foregroundColor(.white)
+                                    .padding()
+                            }
+                            
+                            
                         })
+                     
+                        
                         VStack {
                             HStack(spacing: 20) {
                                 HStack {
@@ -51,7 +70,8 @@ struct FilterView: View {
                     VStack {
                         HStack {
                             Text("場合")
-                                .font(.title)
+                            .bold()
+                            .font(.title)
                             .foregroundColor(.white)
                             .padding(.horizontal, 20.0)
                             Spacer()
@@ -59,14 +79,16 @@ struct FilterView: View {
                         HStack {
                             OccasionButtonView(occasion: .wedding, selectedOccasion: $selectedOccasion)
                             OccasionButtonView(occasion: .gathering, selectedOccasion: $selectedOccasion)
-                            OccasionButtonView(occasion: .seminar, selectedOccasion: $selectedOccasion)
+                            OccasionButtonView(occasion: .sports, selectedOccasion: $selectedOccasion)
+                            OccasionButtonView(occasion: .resturant, selectedOccasion: $selectedOccasion)
                             
                             
                         }
                         HStack {
-                            OccasionButtonView(occasion: .coffee, selectedOccasion: $selectedOccasion)
                             OccasionButtonView(occasion: .awards, selectedOccasion: $selectedOccasion)
                             OccasionButtonView(occasion: .graduation, selectedOccasion: $selectedOccasion)
+                            OccasionButtonView(occasion: .seminar, selectedOccasion: $selectedOccasion)
+                            
                         }
                         HStack{
                             OccasionButtonView(occasion: .sports, selectedOccasion: $selectedOccasion)
@@ -78,6 +100,7 @@ struct FilterView: View {
                     VStack {
                         HStack {
                             Text("情緒")
+                                .bold()
                                 .font(.title)
                             .foregroundColor(.white)
                             .padding(.horizontal, 20.0)
@@ -94,6 +117,7 @@ struct FilterView: View {
                     VStack {
                         HStack {
                             Text("時長")
+                                .bold()
                                 .font(.title)
                             .foregroundColor(.white)
                             .padding(.horizontal, 20.0)
@@ -131,9 +155,66 @@ struct FilterView: View {
                     .font(.headline)
                     .padding()
                     .foregroundColor(.white)
-                }
+                    
+                    HStack{
+                        Button(action: {
+                            selectedOccasion = nil
+                            selectedMood = nil
+                            selectedHour = 0
+                            selectedMinute = 0
+                            selectedSecond = 0
+                        }, label: {
+                            Text("重置")
+                                .font(.system(size: 20))
+                                .bold()
+                                .foregroundColor(.black)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                                .padding(.horizontal, 15)
+                                .background(Color(red: 1, green: 1, blue: 1, opacity: 0.7))
+                                .cornerRadius(30)
+                                .frame(width: 148, height: 56)
+
+                        })
+                        Button(action: {
+                            showLoadingView = true
+                        }, label: {
+                            Text("儲存")
+                                .font(.system(size: 20))
+                                .bold()
+                                .foregroundColor(.black)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                                .padding(.horizontal, 15)
+                                .background(self.djboxGradient)
+                                .cornerRadius(30)
+                                .frame(width: 148, height: 56)
+
+                        })
+                    }
+}
+                GeometryReader{ _ in
+                    HStack{
+                        SideMenu(showMenu: $showMenu)
+                            //.offset(x: showMenu ? 0: UIScreen.main.bounds.width)
+                            //.animation(.easeInOut(duration: 0.5), value: showMenu)
+                        Spacer()
+                            
+                        }
+                    }
             }
+            .onChange(of: showMenu) { newValue in
+                
+            }
+            
         }
+        .background(
+            NavigationLink(destination: LoadingView(), isActive: $showLoadingView) {
+                EmptyView()
+            }
+            .hidden()
+        )
+        
     }
 }
 
@@ -146,15 +227,15 @@ struct OccasionButtonView: View {
             selectedOccasion = occasion
         }) {
             Text(occasion.rawValue)
-                .font(.headline)
-                .padding(.all, 14)
-                .foregroundColor(selectedOccasion == occasion ? .white : .primary)
-                .background(selectedOccasion == occasion ? Color.blue : Color.clear)
-                .cornerRadius(20)
+            .font(.headline)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .foregroundColor(selectedOccasion == occasion ? .black : .primary)
+            .background(selectedOccasion == occasion ? Color.white : Color.clear)
         }
         .buttonStyle(PlainButtonStyle())
-        .background(.white)
-        .cornerRadius(20)
+        .background(Color(red: 1, green: 1, blue: 1, opacity: 0.5))
+        .cornerRadius(50)
         .shadow(radius: 4)
     }
 }
@@ -170,23 +251,47 @@ struct MoodButtonView: View {
             Text(mood.rawValue)
                 .font(.headline)
                 .padding(.all, 14)
-                .foregroundColor(selectedMood == mood ? .white : .primary)
-                .background(selectedMood == mood ? Color.blue : Color.clear)
+                .foregroundColor(selectedMood == mood ? .black : .primary)
+                .background(selectedMood == mood ? Color.white : Color.clear)
                 .cornerRadius(10)
         }
         .buttonStyle(PlainButtonStyle())
-        .background(.white)
-        .cornerRadius(20)
+        .background(Color(red: 1, green: 1, blue: 1, opacity: 0.5))
+        //.background(.white)
+        .cornerRadius(50)
         .shadow(radius: 4)
     }
 }
+
+/*struct ButtonView: View {
+    let reset: Reset
+    @Binding var selectedReset: Reset?
+    
+    var body: some View {
+        Button(action: {
+            selectedReset = Reset
+        }) {
+            Text(Reset.rawValue)
+                .font(.headline)
+                .padding(.all, 14)
+                .foregroundColor(selectedReset == Reset ? .black : .primary)
+                .background(selectedReset == Reset ? Color.white : Color.clear)
+                .cornerRadius(10)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .background(Color(red: 1, green: 1, blue: 1, opacity: 0.5))
+        //.background(.white)
+        .cornerRadius(50)
+        .shadow(radius: 4)
+    }
+}*/
 
 enum Occasion: String, CaseIterable {
     case wedding = "婚禮"
     case awards = "頒獎典禮"
     case graduation = "畢業典禮"
     case gathering = "聚會"
-    case coffee = "咖啡廳"
+    case resturant = "餐廳"
     case seminar = "講座"
     case sports = "運動會"
     case company = "公司活動"
