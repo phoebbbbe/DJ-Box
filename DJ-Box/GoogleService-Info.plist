@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>473127839306-kbl16gbd5spm829f76g1quum22k8o9eu.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.473127839306-kbl16gbd5spm829f76g1quum22k8o9eu</string>
+	<key>API_KEY</key>
+	<string>AIzaSyACvIQVhcwJhHUa7bz9fXzpoU6EgW2X1Rs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>473127839306</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.phoebe.DJ-Box</string>
+	<key>PROJECT_ID</key>
+	<string>dj-box-b2dbf</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dj-box-b2dbf.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:473127839306:ios:d51c4b8bafe90b8f9ce8b3</string>
+</dict>
+</plist>

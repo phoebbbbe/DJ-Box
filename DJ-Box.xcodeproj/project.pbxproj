@@ -16,6 +16,11 @@
 		CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */; };
 		CDB0F3EF2A1DA7BD0055858B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */; };
 		CDB0F3F22A1DA7BD0055858B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB0F3F12A1DA7BD0055858B /* Preview Assets.xcassets */; };
+		CDC06B192A3029240071AD98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDC06B182A3029240071AD98 /* GoogleService-Info.plist */; };
+		CDC06B1C2A302FA10071AD98 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CDC06B1B2A302FA10071AD98 /* FirebaseAuth */; };
+		CDC06B1E2A302FA10071AD98 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDC06B1D2A302FA10071AD98 /* FirebaseFirestoreSwift */; };
+		CDC06B202A302FA10071AD98 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CDC06B1F2A302FA10071AD98 /* FirebaseStorage */; };
+		CDC06B222A3036BD0071AD98 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC06B212A3036BD0071AD98 /* Song.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +34,8 @@
 		CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CDB0F3F12A1DA7BD0055858B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CDC06B182A3029240071AD98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CDC06B212A3036BD0071AD98 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +43,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDC06B1C2A302FA10071AD98 /* FirebaseAuth in Frameworks */,
+				CDC06B1E2A302FA10071AD98 /* FirebaseFirestoreSwift in Frameworks */,
+				CDC06B202A302FA10071AD98 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +78,9 @@
 				708AA3BF2A20AFCE00B80334 /* HomepageView.swift */,
 				708AA3C12A20B01B00B80334 /* FilterView.swift */,
 				CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */,
+				CDC06B212A3036BD0071AD98 /* Song.swift */,
 				CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */,
+				CDC06B182A3029240071AD98 /* GoogleService-Info.plist */,
 				CDB0F3F02A1DA7BD0055858B /* Preview Content */,
 			);
 			path = "DJ-Box";
@@ -98,6 +110,11 @@
 			dependencies = (
 			);
 			name = "DJ-Box";
+			packageProductDependencies = (
+				CDC06B1B2A302FA10071AD98 /* FirebaseAuth */,
+				CDC06B1D2A302FA10071AD98 /* FirebaseFirestoreSwift */,
+				CDC06B1F2A302FA10071AD98 /* FirebaseStorage */,
+			);
 			productName = "DJ-Box";
 			productReference = CDB0F3E72A1DA7BC0055858B /* DJ-Box.app */;
 			productType = "com.apple.product-type.application";
@@ -126,6 +143,9 @@
 				Base,
 			);
 			mainGroup = CDB0F3DE2A1DA7BC0055858B;
+			packageReferences = (
+				CDC06B1A2A302FA10071AD98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = CDB0F3E82A1DA7BC0055858B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -142,6 +162,7 @@
 			files = (
 				CDB0F3F22A1DA7BD0055858B /* Preview Assets.xcassets in Resources */,
 				CDB0F3EF2A1DA7BD0055858B /* Assets.xcassets in Resources */,
+				CDC06B192A3029240071AD98 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +177,7 @@
 				708AA3C02A20AFCE00B80334 /* HomepageView.swift in Sources */,
 				708AA3BC2A20A41600B80334 /* SignupView.swift in Sources */,
 				708AA34C2A2088E500B80334 /* LoginView.swift in Sources */,
+				CDC06B222A3036BD0071AD98 /* Song.swift in Sources */,
 				CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */,
 				708AA3BE2A20A49400B80334 /* ThemeView.swift in Sources */,
 				CDB0F3EB2A1DA7BC0055858B /* DJ_BoxApp.swift in Sources */,
@@ -359,6 +381,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CDC06B1A2A302FA10071AD98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CDC06B1B2A302FA10071AD98 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CDC06B1A2A302FA10071AD98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		CDC06B1D2A302FA10071AD98 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CDC06B1A2A302FA10071AD98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		CDC06B1F2A302FA10071AD98 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CDC06B1A2A302FA10071AD98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CDB0F3DF2A1DA7BC0055858B /* Project object */;
 }
