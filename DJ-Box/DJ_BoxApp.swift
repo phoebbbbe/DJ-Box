@@ -10,6 +10,7 @@ import Firebase
 
 @main
 struct DJ_BoxApp: App {
+    @StateObject var songManager = SongManager()
     
     init() {
             FirebaseApp.configure()
@@ -17,7 +18,9 @@ struct DJ_BoxApp: App {
         
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            FilterView()
+                .environmentObject(songManager)
         }
     }
 }
