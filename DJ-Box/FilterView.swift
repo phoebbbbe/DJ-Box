@@ -3,14 +3,16 @@
 //  DJ-Box
 //
 //  Created by 曹芷瑜 on 2023/5/26.
-//
+//  Modify by 林寧 on 2023/6/12.
 
 import SwiftUI
 
 struct FilterView: View {
     @EnvironmentObject var songManager: SongManager
+    
     @State private var searchText = ""
     @State private var isSearching = false
+    
     @State private var selectedOccasion: Occasion?
     @State private var selectedMood: Mood?
     @State private var selectedDurasion = 0
@@ -19,8 +21,10 @@ struct FilterView: View {
     @State private var selectedSecond = 0
     @State private var selectedReset = 0
     @State private var selectedNext = 0
+    
     @State private var showLoadingView = false
     @State private var showMenu: Bool = false
+    
     @State var offset: CGFloat = 0
     @State var lastStoredoffset: CGFloat = 0
     
@@ -49,7 +53,6 @@ struct FilterView: View {
                                     .foregroundColor(.white)
                                     .padding()
                             }
-                            
                             
                         })
                         
@@ -82,8 +85,7 @@ struct FilterView: View {
                         HStack {
                             OccasionButtonView(occasion: .wedding, selectedOccasion: $selectedOccasion)
                             OccasionButtonView(occasion: .gathering, selectedOccasion: $selectedOccasion)
-                            OccasionButtonView(occasion: .sports, selectedOccasion: $selectedOccasion)
-                            OccasionButtonView(occasion: .resturant, selectedOccasion: $selectedOccasion)
+                            OccasionButtonView(occasion: .coffee, selectedOccasion: $selectedOccasion)
                             
                             
                         }
@@ -190,9 +192,10 @@ struct FilterView: View {
                                     showLoadingView = true
                                     selectedDurasion = (selectedHour*360)+(selectedMinute*60)+selectedSecond
                                     
-                                    songManager.generateSongList(
-                                        occasion: selectedOccasion?.rawValue ?? "wedding",
-                                        mood: selectedMood?.rawValue ?? "happy", duration: selectedDurasion)
+                                    songManager.FilterSongs(
+                                        occasion: selectedOccasion ?? Occasion.wedding,
+                                        mood: selectedMood ?? Mood.happy,
+                                        duration: selectedDurasion)
                                     
                                 }, label: {
                                     Text("儲存")
@@ -275,53 +278,11 @@ struct MoodButtonView: View {
         }
         .buttonStyle(PlainButtonStyle())
         .background(Color(red: 1, green: 1, blue: 1, opacity: 0.5))
-        //.background(.white)
         .cornerRadius(50)
         .shadow(radius: 4)
     }
 }
 
-
-enum Occasion: String, CaseIterable {
-    case wedding = "wedding"
-    case awards = "awards"
-    case graduation = "graduation"
-    case gathering = "gathering"
-    case resturant = "resturant"
-    case seminar = "seminar"
-    case sports = "sports"
-    case company = "company"
-    
-    func text() -> String {
-        switch self {
-        case .wedding: return "婚禮"
-        case .awards: return "頒獎典禮"
-        case .graduation: return "畢業典禮"
-        case .gathering: return "聚會"
-        case .resturant: return "餐廳"
-        case .seminar: return "講座"
-        case .sports: return "運動會"
-        case .company: return "公司活動"
-
-        }
-    }
-}
-
-enum Mood: String, CaseIterable {
-    case energetic = "energetic"
-    case happy = "happy"
-    case calm = "calm"
-    case sad = "sad"
-    
-    func text() -> String {
-        switch self{
-        case .energetic: return "活力"
-        case .happy: return "開心"
-        case .calm: return "平靜"
-        case .sad: return "悲傷"
-        }
-    }
-}
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {

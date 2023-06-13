@@ -10,8 +10,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct ContentView: View {
-    /* Test Firebase */
-    @FirestoreQuery(collectionPath: "songs", predicates: [.order(by: "title")]) var songs: [Song]
     
     var body: some View {
         ZStack {
@@ -19,18 +17,7 @@ struct ContentView: View {
                .ignoresSafeArea()
             /* Test Firebase - Read data */
             VStack {
-                List {
-                    ForEach(songs) { song in
-                        HStack {
-                            Text(song.title)
-                            Spacer()
-                            VStack(alignment: .trailing) {
-                                Text(song.occasion)
-                                Text("\(song.mood)")
-                            }
-                        }
-                    }
-                }
+                Text("Hello World!")
             }
         }
     }
