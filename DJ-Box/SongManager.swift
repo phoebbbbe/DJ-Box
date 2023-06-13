@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import CoreML
@@ -34,80 +35,69 @@ class SongManager: ObservableObject {
         print(occasion.rawValue)
         print(mood.rawValue)
         
-        // 載入Mood CoreML模型
-        let moodModel = MoodCNNClassifier()
-        let occasionModel = OccasionCNNClassifier()
-        
         // 創建輸入資料
         guard let tensorInput = try? MLMultiArray(shape: [1, 40], dataType: .float32) else {
             fatalError("Could not create tensorInput")
         }
         
-        for song in songDataList {
-            tensorInput[0] = NSNumber(value: Float32(song.centroid_mean))
-            tensorInput[1] = NSNumber(value: Float32(song.roloff_mean))
-            tensorInput[2] = NSNumber(value: Float32(song.flux_mean))
-            tensorInput[3] = NSNumber(value: Float32(song.rmse_mean))
-            tensorInput[4] = NSNumber(value: Float32(song.zcr_mean))
-            tensorInput[5] = NSNumber(value: Float32(song.bandwidth_mean))
-            tensorInput[6] = NSNumber(value: Float32(song.flatness_mean))
-            tensorInput[7] = NSNumber(value: Float32(song.mels_0_mean))
-            tensorInput[8] = NSNumber(value: Float32(song.mels_1_mean))
-            tensorInput[9] = NSNumber(value: Float32(song.mels_2_mean))
-            tensorInput[10] = NSNumber(value: Float32(song.mels_3_mean))
-            tensorInput[11] = NSNumber(value: Float32(song.mels_4_mean))
-            tensorInput[12] = NSNumber(value: Float32(song.mels_5_mean))
-            tensorInput[13] = NSNumber(value: Float32(song.mels_6_mean))
-            tensorInput[14] = NSNumber(value: Float32(song.mels_7_mean))
-            tensorInput[15] = NSNumber(value: Float32(song.mels_8_mean))
-            tensorInput[16] = NSNumber(value: Float32(song.mels_9_mean))
-            tensorInput[17] = NSNumber(value: Float32(song.mels_10_mean))
-            tensorInput[18] = NSNumber(value: Float32(song.mels_11_mean))
-            tensorInput[19] = NSNumber(value: Float32(song.mels_12_mean))
-            tensorInput[20] = NSNumber(value: Float32(song.mels_13_mean))
-            tensorInput[21] = NSNumber(value: Float32(song.mels_14_mean))
-            tensorInput[22] = NSNumber(value: Float32(song.mels_15_mean))
-            tensorInput[23] = NSNumber(value: Float32(song.mels_16_mean))
-            tensorInput[24] = NSNumber(value: Float32(song.mels_17_mean))
-            tensorInput[25] = NSNumber(value: Float32(song.mels_18_mean))
-            tensorInput[26] = NSNumber(value: Float32(song.mels_19_mean))
-            tensorInput[27] = NSNumber(value: Float32(song.chroma_0_mean))
-            tensorInput[28] = NSNumber(value: Float32(song.chroma_1_mean))
-            tensorInput[29] = NSNumber(value: Float32(song.chroma_2_mean))
-            tensorInput[30] = NSNumber(value: Float32(song.chroma_3_mean))
-            tensorInput[31] = NSNumber(value: Float32(song.chroma_4_mean))
-            tensorInput[32] = NSNumber(value: Float32(song.chroma_5_mean))
-            tensorInput[33] = NSNumber(value: Float32(song.chroma_6_mean))
-            tensorInput[34] = NSNumber(value: Float32(song.chroma_7_mean))
-            tensorInput[35] = NSNumber(value: Float32(song.chroma_8_mean))
-            tensorInput[36] = NSNumber(value: Float32(song.chroma_9_mean))
-            tensorInput[37] = NSNumber(value: Float32(song.chroma_10_mean))
-            tensorInput[38] = NSNumber(value: Float32(song.chroma_11_mean))
+        for song in self.songDataList {
+            tensorInput[0] = NSNumber(value: Float32(Float(song.centroid_mean) ?? 0.0))
+            tensorInput[1] = NSNumber(value: Float32(Float(song.roloff_mean) ?? 0.0))
+            tensorInput[2] = NSNumber(value: Float32(Float(song.flux_mean) ?? 0.0))
+            tensorInput[3] = NSNumber(value: Float32(Float(song.rmse_mean) ?? 0.0))
+            tensorInput[4] = NSNumber(value: Float32(Float(song.zcr_mean) ?? 0.0))
+            tensorInput[5] = NSNumber(value: Float32(Float(song.bandwidth_mean) ?? 0.0))
+            tensorInput[6] = NSNumber(value: Float32(Float(song.flatness_mean) ?? 0.0))
+            tensorInput[7] = NSNumber(value: Float32(Float(song.mels_0_mean) ?? 0.0))
+            tensorInput[8] = NSNumber(value: Float32(Float(song.mels_1_mean) ?? 0.0))
+            tensorInput[9] = NSNumber(value: Float32(Float(song.mels_2_mean) ?? 0.0))
+            tensorInput[10] = NSNumber(value: Float32(Float(song.mels_3_mean) ?? 0.0))
+            tensorInput[11] = NSNumber(value: Float32(Float(song.mels_4_mean) ?? 0.0))
+            tensorInput[12] = NSNumber(value: Float32(Float(song.mels_5_mean) ?? 0.0))
+            tensorInput[13] = NSNumber(value: Float32(Float(song.mels_6_mean) ?? 0.0))
+            tensorInput[14] = NSNumber(value: Float32(Float(song.mels_7_mean) ?? 0.0))
+            tensorInput[15] = NSNumber(value: Float32(Float(song.mels_8_mean) ?? 0.0))
+            tensorInput[16] = NSNumber(value: Float32(Float(song.mels_9_mean) ?? 0.0))
+            tensorInput[17] = NSNumber(value: Float32(Float(song.mels_10_mean) ?? 0.0))
+            tensorInput[18] = NSNumber(value: Float32(Float(song.mels_11_mean) ?? 0.0))
+            tensorInput[19] = NSNumber(value: Float32(Float(song.mels_12_mean) ?? 0.0))
+            tensorInput[20] = NSNumber(value: Float32(Float(song.mels_13_mean) ?? 0.0))
+            tensorInput[21] = NSNumber(value: Float32(Float(song.mels_14_mean) ?? 0.0))
+            tensorInput[22] = NSNumber(value: Float32(Float(song.mels_15_mean) ?? 0.0))
+            tensorInput[23] = NSNumber(value: Float32(Float(song.mels_16_mean) ?? 0.0))
+            tensorInput[24] = NSNumber(value: Float32(Float(song.mels_17_mean) ?? 0.0))
+            tensorInput[25] = NSNumber(value: Float32(Float(song.mels_18_mean) ?? 0.0))
+            tensorInput[26] = NSNumber(value: Float32(Float(song.mels_19_mean) ?? 0.0))
+            tensorInput[27] = NSNumber(value: Float32(Float(song.chroma_0_mean) ?? 0.0))
+            tensorInput[28] = NSNumber(value: Float32(Float(song.chroma_1_mean) ?? 0.0))
+            tensorInput[29] = NSNumber(value: Float32(Float(song.chroma_2_mean) ?? 0.0))
+            tensorInput[30] = NSNumber(value: Float32(Float(song.chroma_3_mean) ?? 0.0))
+            tensorInput[31] = NSNumber(value: Float32(Float(song.chroma_4_mean) ?? 0.0))
+            tensorInput[32] = NSNumber(value: Float32(Float(song.chroma_5_mean) ?? 0.0))
+            tensorInput[33] = NSNumber(value: Float32(Float(song.chroma_6_mean) ?? 0.0))
+            tensorInput[34] = NSNumber(value: Float32(Float(song.chroma_7_mean) ?? 0.0))
+            tensorInput[35] = NSNumber(value: Float32(Float(song.chroma_8_mean) ?? 0.0))
+            tensorInput[36] = NSNumber(value: Float32(Float(song.chroma_9_mean) ?? 0.0))
+            tensorInput[37] = NSNumber(value: Float32(Float(song.chroma_10_mean) ?? 0.0))
+            tensorInput[38] = NSNumber(value: Float32(Float(song.chroma_11_mean) ?? 0.0))
             tensorInput[39] = NSNumber(value: Float32(0)) // label
             
-            // 進行場合預測
-            do {
-                //
-            }
-            // 進行情緒預測
-            do {
-                let prediction = try moodModel.prediction(flatten_1_input: tensorInput)
-//                    print(tensorInput)
-//                    print(prediction.Identity[0].floatValue)
-//                    print(prediction.Identity[1].floatValue)
-//                    print(prediction.Identity[2].floatValue)
-                print(prediction.Identity[3].floatValue)
+            
+            if let occasionPrediction = ClassifyOccasion(tensorInput) {
+                if occasionPrediction.Identity[occasion.identity()].floatValue > 0.5 {
+                    print("occasion > \(song.title):\(occasionPrediction.Identity[occasion.identity()].floatValue)")
 
-                if prediction.Identity[mood.identity()].floatValue > 0.5 {
-                    self.recommendSongs.append(Song(title: song.title, duration: song.duration, url: song.url))
-                        // return 1
+                    if let moodPrediction = ClassifyMood(tensorInput) {
+                        if moodPrediction.Identity[mood.identity()].floatValue > 0.5 {
+                            recommendSongs.append(Song(title: song.title, duration: Int(song.duration) ?? 0, url: song.url))
+                            print("mood > \(song.title):\(moodPrediction.Identity[mood.identity()].floatValue)")
+                        }
+                        
+                        
+                    }
                 }
-                else {
-                        // return 0
-                }
-            } catch {
-                fatalError("Failed to make prediction with Mood model")
             }
+
         }
             
 //            // 從歌曲列表中挑選符合時長的歌曲
@@ -130,6 +120,27 @@ class SongManager: ObservableObject {
         print(self.recommendSongs)
     }
     
+    func ClassifyMood(_ input: MLMultiArray) -> MoodCNNClassifierOutput? {
+        
+        do {
+            let moodModel = MoodCNNClassifier()
+            let prediction = try moodModel.prediction(flatten_1_input: input)
+            return prediction
+        } catch {
+            fatalError("ERROR: Mood Model failed to predict.")
+        }
+    }
+    
+    func ClassifyOccasion(_ input: MLMultiArray) -> OccasionCNNClassifierOutput? {
+        
+        do {
+            let occasionModel = OccasionCNNClassifier()
+            let prediction = try occasionModel.prediction(flatten_13_input: input)
+            return prediction
+        } catch {
+            fatalError("ERROR: Occasion Model failed to predict.")
+        }
+    }
 }
 
 struct Song:Codable, Identifiable {
@@ -142,48 +153,48 @@ struct Song:Codable, Identifiable {
 struct SongData: Codable, Identifiable {
     @DocumentID var id: String?
     let title: String
-    let duration: Int
+    let duration: String
     let url: String
-    let field1: Int
-    let bandwidth_mean: Float
-    let centroid_mean: Float
-    let flatness_mean: Float
-    let flux_mean: Float
-    let rmse_mean: Float
-    let roloff_mean: Float
-    let zcr_mean: Float
-    let chroma_0_mean: Float
-    let chroma_1_mean: Float
-    let chroma_2_mean: Float
-    let chroma_3_mean: Float
-    let chroma_4_mean: Float
-    let chroma_5_mean: Float
-    let chroma_6_mean: Float
-    let chroma_7_mean: Float
-    let chroma_8_mean: Float
-    let chroma_9_mean: Float
-    let chroma_10_mean: Float
-    let chroma_11_mean: Float
-    let mels_0_mean: Float
-    let mels_1_mean: Float
-    let mels_2_mean: Float
-    let mels_3_mean: Float
-    let mels_4_mean: Float
-    let mels_5_mean: Float
-    let mels_6_mean: Float
-    let mels_7_mean: Float
-    let mels_8_mean: Float
-    let mels_9_mean: Float
-    let mels_10_mean: Float
-    let mels_11_mean: Float
-    let mels_12_mean: Float
-    let mels_13_mean: Float
-    let mels_14_mean: Float
-    let mels_15_mean: Float
-    let mels_16_mean: Float
-    let mels_17_mean: Float
-    let mels_18_mean: Float
-    let mels_19_mean: Float
+    let field1: String
+    let bandwidth_mean: String
+    let centroid_mean: String
+    let flatness_mean: String
+    let flux_mean: String
+    let rmse_mean: String
+    let roloff_mean: String
+    let zcr_mean: String
+    let chroma_0_mean: String
+    let chroma_1_mean: String
+    let chroma_2_mean: String
+    let chroma_3_mean: String
+    let chroma_4_mean: String
+    let chroma_5_mean: String
+    let chroma_6_mean: String
+    let chroma_7_mean: String
+    let chroma_8_mean: String
+    let chroma_9_mean: String
+    let chroma_10_mean: String
+    let chroma_11_mean: String
+    let mels_0_mean: String
+    let mels_1_mean: String
+    let mels_2_mean: String
+    let mels_3_mean: String
+    let mels_4_mean: String
+    let mels_5_mean: String
+    let mels_6_mean: String
+    let mels_7_mean: String
+    let mels_8_mean: String
+    let mels_9_mean: String
+    let mels_10_mean: String
+    let mels_11_mean: String
+    let mels_12_mean: String
+    let mels_13_mean: String
+    let mels_14_mean: String
+    let mels_15_mean: String
+    let mels_16_mean: String
+    let mels_17_mean: String
+    let mels_18_mean: String
+    let mels_19_mean: String
 }
 
 //['awards' 'coffee' 'company' 'gathering' 'graduation' 'seminar' 'sports' 'wedding']

@@ -19,8 +19,10 @@ struct DJ_BoxApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
+//                .environmentObject(songManager)
             FilterView()
                 .environmentObject(songManager)
+            
         }
     }
 }
