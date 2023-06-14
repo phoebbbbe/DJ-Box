@@ -12,11 +12,12 @@ import FirebaseFirestoreSwift
 import CoreML
 
 class SongManager: ObservableObject {
-    @Published var recommendSongs: [Song] = []
     @Published var songDataList: [SongData] = []
+    @Published var recommendSongs: [Song] = []
     
     init() {
         GetSongData()
+        
     }
     
     func GetSongData() {
@@ -28,12 +29,18 @@ class SongManager: ObservableObject {
             self.songDataList = snapshot.documents.compactMap({ snapshot in
                 try? snapshot.data(as: SongData.self)
             })
+//            self.songDataList = self.songDataList.sorted{ $0.duration > $1.duration }
+            self.songDataList.shuffle()
         }
     }
     
     func FilterSongs(occasion: Occasion, mood: Mood, duration: Int) {
         print(occasion.rawValue)
         print(mood.rawValue)
+        print(duration)
+        
+        var closetDifference = duration
+        var closetDuration = 0
         
         // 創建輸入資料
         guard let tensorInput = try? MLMultiArray(shape: [1, 40], dataType: .float32) else {
@@ -82,42 +89,39 @@ class SongManager: ObservableObject {
             tensorInput[38] = NSNumber(value: Float32(Float(song.chroma_11_mean) ?? 0.0))
             tensorInput[39] = NSNumber(value: Float32(0)) // label
             
-            
+            // 篩選出符合 occasion condition 的 song
             if let occasionPrediction = ClassifyOccasion(tensorInput) {
                 if occasionPrediction.Identity[occasion.identity()].floatValue > 0.5 {
                     print("occasion > \(song.title):\(occasionPrediction.Identity[occasion.identity()].floatValue)")
-
+                    
+                    // 篩選出符合 mood condition 的 song
                     if let moodPrediction = ClassifyMood(tensorInput) {
                         if moodPrediction.Identity[mood.identity()].floatValue > 0.5 {
-                            recommendSongs.append(Song(title: song.title, duration: Int(song.duration) ?? 0, url: song.url))
                             print("mood > \(song.title):\(moodPrediction.Identity[mood.identity()].floatValue)")
+                            
+                            // 找出最貼近 duration 的 song
+                            if let songDuration = Int(song.duration) {
+                                if songDuration < duration {
+                                    let difference = (duration - songDuration)
+                                    print("Difference: \(difference)")
+                                    
+                                    if difference < closetDifference {
+                                        recommendSongs.append(Song(title: song.title, duration: Int(song.duration) ?? 0, url: song.url))
+                                        closetDifference = difference
+                                        closetDuration += Int(song.duration) ?? 0
+                                        print("Closet Duration: \(closetDuration)")
+                                    }
+                                }
+                            }
+                            
                         }
-                        
-                        
                     }
                 }
             }
-
         }
-            
-//            // 從歌曲列表中挑選符合時長的歌曲
-//            var totalDuration = 0
-//
-//            // 還要再修改
-//            while totalDuration < duration && !songList.isEmpty {
-//                let randomIndex = Int.random(in: 0..<songList.count)
-//                let song = songList[randomIndex]
-//
-//                if totalDuration + song.duration <= duration {
-//                    self.recommendSongs.append(song)
-//                    totalDuration += song.duration
-//                }
-//
-//                // 從歌曲列表中移除已選擇的歌曲
-//                songList.remove(at: randomIndex)
-//             }
         print("Finish geralize recommend song list.")
-        print(self.recommendSongs)
+        print("Closet Duration: \(closetDuration)")
+        print("Recommend Song List: \(self.recommendSongs)")
     }
     
     func ClassifyMood(_ input: MLMultiArray) -> MoodCNNClassifierOutput? {
@@ -141,6 +145,7 @@ class SongManager: ObservableObject {
             fatalError("ERROR: Occasion Model failed to predict.")
         }
     }
+
 }
 
 struct Song:Codable, Identifiable {
