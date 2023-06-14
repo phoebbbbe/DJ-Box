@@ -130,7 +130,7 @@ struct FilterView: View {
                         }
                         HStack {
                             Picker("時", selection: $selectedHour) {
-                                ForEach(0..<24, id: \.self) { hour in
+                                ForEach(0..<3, id: \.self) { hour in
                                     Text("\(hour) h")
                                         .foregroundColor(.white)
                                 }
@@ -157,10 +157,10 @@ struct FilterView: View {
                     }
                     .padding()
                     
-                    Text("Selected Time: \(selectedHour)時\(selectedMinute)分\(selectedSecond)秒")
-                        .font(.headline)
-                        .padding()
-                        .foregroundColor(.white)
+//                    Text("Selected Time: \(selectedHour)時\(selectedMinute)分\(selectedSecond)秒")
+//                        .font(.headline)
+//                        .padding()
+//                        .foregroundColor(.white)
                     
                     HStack{
                         Button(action: {
@@ -190,7 +190,7 @@ struct FilterView: View {
                                 Button(action: {
                                     print("Show Loading View!!")
                                     showLoadingView = true
-                                    selectedDurasion = (selectedHour*360)+(selectedMinute*60)+selectedSecond
+                                    selectedDurasion = (selectedHour*3600)+(selectedMinute*60)+selectedSecond
                                     
                                     songManager.FilterSongs(
                                         occasion: selectedOccasion ?? Occasion.wedding,
