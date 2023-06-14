@@ -29,8 +29,6 @@ class SongManager: ObservableObject {
             self.songDataList = snapshot.documents.compactMap({ snapshot in
                 try? snapshot.data(as: SongData.self)
             })
-//            self.songDataList = self.songDataList.sorted{ $0.duration > $1.duration }
-            self.songDataList.shuffle()
         }
     }
     
@@ -39,13 +37,12 @@ class SongManager: ObservableObject {
         print(mood.rawValue)
         print(duration)
         
-        var closetDifference = duration
-        var closetDuration = 0
-        
         // 創建輸入資料
         guard let tensorInput = try? MLMultiArray(shape: [1, 40], dataType: .float32) else {
             fatalError("Could not create tensorInput")
         }
+        
+        self.songDataList.shuffle()
         
         for song in self.songDataList {
             tensorInput[0] = NSNumber(value: Float32(Float(song.centroid_mean) ?? 0.0))
@@ -101,16 +98,13 @@ class SongManager: ObservableObject {
                             
                             // 找出最貼近 duration 的 song
                             if let songDuration = Int(song.duration) {
-                                if songDuration < duration {
-                                    let difference = (duration - songDuration)
-                                    print("Difference: \(difference)")
-                                    
-                                    if difference < closetDifference {
-                                        recommendSongs.append(Song(title: song.title, duration: Int(song.duration) ?? 0, url: song.url))
-                                        closetDifference = difference
-                                        closetDuration += Int(song.duration) ?? 0
-                                        print("Closet Duration: \(closetDuration)")
-                                    }
+                                
+                                // 目前 recommend song list 中的總長度
+                                let curDuration = self.recommendSongs.map { Int($0.duration) }.reduce(0, +)
+                                
+                                if abs(duration - (curDuration + songDuration)) <= abs(duration - curDuration) {
+                                    self.recommendSongs.append(Song(title: song.title, duration: songDuration, url: song.url))
+                                    print("Current Duration: \(curDuration + songDuration)")
                                 }
                             }
                             
@@ -120,7 +114,6 @@ class SongManager: ObservableObject {
             }
         }
         print("Finish geralize recommend song list.")
-        print("Closet Duration: \(closetDuration)")
         print("Recommend Song List: \(self.recommendSongs)")
     }
     
