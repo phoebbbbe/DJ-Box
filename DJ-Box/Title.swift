@@ -1,8 +1,8 @@
 //
 //  Title.swift
-//  MovieChat
+//  DJ-Box
 //
-//  Created by 林寧 on 2023/5/9.
+//  Created by 林寧 on 2023/6/14.
 //
 
 import SwiftUI
@@ -15,10 +15,11 @@ struct Title: View {
         HStack {
             Image(systemName: iconName)
                 .imageScale(.large)
-                .foregroundColor(.accentColor)
+                .foregroundColor(.white)
             Text(title)
                 .font(.title)
                 .fontWeight(.black)
+                .foregroundColor(.white)
         }
         .padding()
     }

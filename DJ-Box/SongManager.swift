@@ -16,11 +16,10 @@ class SongManager: ObservableObject {
     @Published var recommendSongs: [Song] = []
     
     init() {
-        GetSongData()
-        
+        GetSongDataList()
     }
     
-    func GetSongData() {
+    func GetSongDataList() {
         songDataList.removeAll()
         
         let db = Firestore.firestore()
@@ -141,11 +140,11 @@ class SongManager: ObservableObject {
 
 }
 
-struct Song:Codable, Identifiable {
+struct Song: Codable, Identifiable {
     @DocumentID var id: String?
-    let title: String
-    let duration: Int
-    let url: String
+    var title: String
+    var duration: Int
+    var url: String
 }
 
 struct SongData: Codable, Identifiable {
