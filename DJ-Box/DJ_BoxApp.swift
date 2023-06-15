@@ -20,9 +20,10 @@ struct DJ_BoxApp: App {
         WindowGroup {
 //            ContentView()
 //                .environmentObject(songManager)
-            FilterView()
-                .environmentObject(songManager)
+            //FilterView()
+              //  .environmentObject(songManager)
             
+            ListView()
         }
     }
 }

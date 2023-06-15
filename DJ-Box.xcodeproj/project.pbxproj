@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7039C4E42A2C887100126FB2 /* LoadingView.swift */; };
+		70761FFF2A3AC6EF00F38B1A /* ListcellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70761FFE2A3AC6EF00F38B1A /* ListcellView.swift */; };
+		707620012A3AC72100F38B1A /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707620002A3AC72100F38B1A /* VideoModel.swift */; };
 		708AA34C2A2088E500B80334 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA34B2A2088E500B80334 /* LoginView.swift */; };
 		708AA3BC2A20A41600B80334 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3BB2A20A41600B80334 /* SignupView.swift */; };
 		708AA3BE2A20A49400B80334 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3BD2A20A49400B80334 /* ThemeView.swift */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		7039C4E42A2C887100126FB2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		70761FFE2A3AC6EF00F38B1A /* ListcellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListcellView.swift; sourceTree = "<group>"; };
+		707620002A3AC72100F38B1A /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		708AA34B2A2088E500B80334 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		708AA3BB2A20A41600B80334 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		708AA3BD2A20A49400B80334 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 				708AA3BF2A20AFCE00B80334 /* HomepageView.swift */,
 				708AA3C12A20B01B00B80334 /* FilterView.swift */,
 				7098D4E82A2E070B00E8AE54 /* ListView.swift */,
+				70761FFE2A3AC6EF00F38B1A /* ListcellView.swift */,
+				707620002A3AC72100F38B1A /* VideoModel.swift */,
 				7098D4E62A2DFC0D00E8AE54 /* SideMenu.swift */,
 				7039C4E42A2C887100126FB2 /* LoadingView.swift */,
 				CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */,
@@ -196,10 +202,12 @@
 				708AA34C2A2088E500B80334 /* LoginView.swift in Sources */,
 				CDC06B222A3036BD0071AD98 /* SongManager.swift in Sources */,
 				CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */,
+				70761FFF2A3AC6EF00F38B1A /* ListcellView.swift in Sources */,
 				7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */,
 				7098D4E72A2DFC0D00E8AE54 /* SideMenu.swift in Sources */,
 				7098D4E92A2E070B00E8AE54 /* ListView.swift in Sources */,
 				708AA3BE2A20A49400B80334 /* ThemeView.swift in Sources */,
+				707620012A3AC72100F38B1A /* VideoModel.swift in Sources */,
 				CDB0F3EB2A1DA7BC0055858B /* DJ_BoxApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
