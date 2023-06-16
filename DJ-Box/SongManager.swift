@@ -145,6 +145,7 @@ struct Song: Codable, Identifiable {
     var title: String
     var duration: Int
     var url: String
+    var isFavorite : Bool = false
 }
 
 struct SongData: Codable, Identifiable {
