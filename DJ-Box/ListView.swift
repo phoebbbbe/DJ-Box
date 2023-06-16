@@ -21,9 +21,8 @@ struct ListView: View {
                     .bold()
                     .font(.system(size: 33))
                     .foregroundColor(.white)
-                    .padding(.bottom, 70)
-                    .offset(x: 0, y: -250)
-                
+                    .padding(.top, 50)
+                    .padding(.bottom, 50)
                 ScrollView(.vertical) {
                     LazyVStack(spacing: 20) {
                         ForEach(songListManager.youtubeList, id: \.id) { youtube in
@@ -38,7 +37,7 @@ struct ListView: View {
                                             .resizable()
                                             .frame(width: 50, height: 50)
                                             .cornerRadius(8)
-                                            .padding(.leading,20)
+                                            .padding(.leading, 20)
                                     }
                                     
                                     Spacer()
@@ -54,6 +53,19 @@ struct ListView: View {
                     }
                     .padding(.horizontal)
                 }
+                
+                Button(action: {
+                    //加入收藏
+                }) {
+                    Text("加入收藏")
+                        .font(.headline)
+                        .foregroundColor(.black)
+                        .padding()
+                        .background(djboxGradient)
+                        .cornerRadius(10)
+                }
+                .padding(.top, 20)
+                .padding(.bottom, 50)
             }
         }
     }
