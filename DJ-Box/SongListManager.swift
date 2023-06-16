@@ -13,9 +13,11 @@ import CoreGraphics
 
 class SongListManager: ObservableObject {
     @Published var songLists: [SongList] = []
-    
+    @Published var youtubeList: [YoutubeSong] = [] //內容變更時需要重新載入的參數
+
     init() {
         GetSongLists()
+        FetchYoutubeList()
     }
     
     func GetSongLists() {
@@ -45,6 +47,43 @@ class SongListManager: ObservableObject {
         }
     }
     
+    func FetchYoutubeList() {
+        //取得影片基本資訊用snippet
+        let playlistId = "PLNhzyV4NWnWPg906ZXTcB8zekuhkTxswK" //播放清單id
+        let apiKey = "AIzaSyDsm2lYoq1qH7DQZdSDMeboOuKmck_w-r0"
+
+        let urlString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails,status&playlistId=PLNhzyV4NWnWPg906ZXTcB8zekuhkTxswK&key=AIzaSyDsm2lYoq1qH7DQZdSDMeboOuKmck_w-r0&maxResults=30"
+
+        if let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                if let data = data {
+                    do {
+                        let searchResponse = try decoder.decode(SearchResponse.self, from: data)
+                        var newVideos: [YoutubeSong] = []
+                        for item in searchResponse.items {
+                            let newVideo = YoutubeSong(title: item.snippet.title,
+                                                 thumbnailUrl: item.snippet.thumbnails.standard.url,
+                                                 videoId: item.snippet.resourceId.videoId)
+                            newVideos += [newVideo]
+                        }
+                        DispatchQueue.main.async {
+                            self.youtubeList = newVideos
+                            print(searchResponse.items)
+                        }
+                    } catch {
+                        if let decodingError = error as? DecodingError {
+                            print("ERROR: \(decodingError.self)")
+                        }
+                        fatalError("decode error")
+                    }
+                }
+            }.resume()
+        }
+    }
+
+    
 }
 
 struct SongList: Codable, Identifiable {
@@ -54,6 +93,16 @@ struct SongList: Codable, Identifiable {
     var item: String = "ColorFigure01"
     var offset_x: Float = 110.0
     var offset_y: Float = 80.0
+    var youtube_id: String = ""
+    
+}
+
+struct YoutubeSong: Codable, Identifiable {
+//    @DocumentID var id: String?
+    var id = UUID()
+    var title: String //影片標題
+    var thumbnailUrl: URL //縮圖
+    var videoId: String
 }
 
 enum CircleItem: String, CaseIterable {
@@ -75,3 +124,30 @@ enum CircleItem: String, CaseIterable {
         }
     }
 }
+
+struct SearchResponse: Codable {
+    let items: [Item]
+    
+    struct Item: Codable {
+        let snippet: Snippet
+        
+        struct Snippet: Codable {
+            let title: String
+            let thumbnails: Thumbnail
+            let resourceId: ResourceId
+            
+            struct Thumbnail: Codable {
+                let standard: ThumbnailImage
+                
+                struct ThumbnailImage: Codable {
+                    let url: URL
+                }
+            }
+            
+            struct ResourceId: Codable {
+                let videoId: String
+            }
+        }
+    }
+}
+

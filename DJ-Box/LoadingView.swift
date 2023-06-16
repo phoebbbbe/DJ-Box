@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct LoadingView: View {
+    @EnvironmentObject var songManager: SongManager
     @State private var animationAmount = 0.0
+    @State private var duration = 1.5
     var body: some View {
         ZStack{
             Color(red: 23/255, green: 22/255, blue: 46/255)
@@ -27,7 +29,7 @@ struct LoadingView: View {
                             .frame (width: 25, height: 25)
                             .scaleEffect (animationAmount)
                             .opacity (Double (3 - index) / 3)
-                            .animation(.easeInOut (duration: 1.5)
+                            .animation(.easeInOut (duration: duration)
                                 .repeatForever(autoreverses: true)
                                 .delay (0.25 * Double (index)) , value: animationAmount)
                     }
@@ -42,11 +44,13 @@ struct LoadingView: View {
             }
             
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
         LoadingView()
+            .environmentObject(SongManager())
     }
 }

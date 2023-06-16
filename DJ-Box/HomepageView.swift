@@ -61,15 +61,14 @@ struct HomepageView: View {
                                 
                             }
                             .offset(x: 0, y: -50)
+                            
                         }
-
-
                     }
                     
+                    
                 }
-                
-                
             }
+            
         }
     }
 }

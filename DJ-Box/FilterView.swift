@@ -185,33 +185,29 @@ struct FilterView: View {
 
                         VStack {
                             NavigationLink {
+//                                selectedDurasion = (selectedHour*3600)+(selectedMinute*60)+selectedSecond
+                                
+//                                    songManager.FilterSongs(
+//                                        occasion: selectedOccasion ?? Occasion.wedding,
+//                                        mood: selectedMood ?? Mood.happy,
+//                                        duration: selectedDurasion)
                                 LoadingView()
+                                    .environmentObject(SongManager())
                             } label: {
-                                Button(action: {
-                                    print("Show Loading View!!")
-                                    showLoadingView = true
-                                    selectedDurasion = (selectedHour*3600)+(selectedMinute*60)+selectedSecond
-                                    
-                                    songManager.FilterSongs(
-                                        occasion: selectedOccasion ?? Occasion.wedding,
-                                        mood: selectedMood ?? Mood.happy,
-                                        duration: selectedDurasion)
-                                    
-                                }, label: {
-                                    Text("儲存")
-                                        .font(.system(size: 20))
-                                        .bold()
-                                        .foregroundColor(.black)
-                                        .multilineTextAlignment(.center)
-                                        .padding()
-                                        .padding(.horizontal, 15)
-                                        .background(self.djboxGradient)
-                                        .cornerRadius(30)
-                                        .frame(width: 148, height: 56)
-                                    
-                                })
+                                Text("儲存")
+                                    .font(.system(size: 20))
+                                    .bold()
+                                    .foregroundColor(.black)
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                                    .padding(.horizontal, 15)
+                                    .background(self.djboxGradient)
+                                    .cornerRadius(30)
+                                    .frame(width: 148, height: 56)
+                                
+                            }
                         }
-                        }
+                        .navigationBarHidden(true)
                     }
                 }
                 GeometryReader{ _ in
@@ -229,6 +225,7 @@ struct FilterView: View {
             }
             
         }
+        .navigationBarBackButtonHidden(true)
 //        .background(
 //            NavigationLink(destination: LoadingView(), isActive: $showLoadingView) {
 //                EmptyView()
