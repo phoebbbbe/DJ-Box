@@ -16,7 +16,7 @@ class User: ObservableObject {
     }
     
     func login(email: String , password: String){
-        Auth.auth().signIn(withEmail:  "carol@gmail.com", password: "12345678"){ result, error in
+        Auth.auth().signIn(withEmail:  email, password: password){ result, error in
             if error != nil {
                 print(error!.localizedDescription)
             }
@@ -24,6 +24,7 @@ class User: ObservableObject {
         Auth.auth().addStateDidChangeListener{theAuth,theUser in
             if theUser != nil{
                 self.userIsLoggedin = true
+                print("succesd.")
             }
             
         }
