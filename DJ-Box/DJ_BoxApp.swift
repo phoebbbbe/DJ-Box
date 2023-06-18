@@ -24,6 +24,7 @@ struct DJ_BoxApp: App {
 //            FilterView()
 //                .environmentObject(songManager)
             HomepageView()
+                .environmentObject(songManager)
                 .environmentObject(songListManager)
             
         }
