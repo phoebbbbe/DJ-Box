@@ -20,7 +20,7 @@ class SongManager: ObservableObject {
     }
     
     func GetSongDataList() {
-        songDataList.removeAll()
+        self.songDataList.removeAll()
         
         let db = Firestore.firestore()
         db.collection("songs").order(by: "title").getDocuments { snapshot, error in
@@ -31,7 +31,7 @@ class SongManager: ObservableObject {
         }
     }
     
-    func FilterSongs(occasion: Occasion, mood: Mood, duration: Int) {
+    func FilterSongs(occasion: Occasion, mood: Mood, duration: Int, completion: @escaping () -> Void) {
         print(occasion.rawValue)
         print(mood.rawValue)
         print(duration)
@@ -42,6 +42,10 @@ class SongManager: ObservableObject {
         }
         
         self.songDataList.shuffle()
+        self.songDataList.shuffle()
+        self.songDataList.shuffle()
+        
+        self.recommendSongs.removeAll()
         
         for song in self.songDataList {
             tensorInput[0] = NSNumber(value: Float32(Float(song.centroid_mean) ?? 0.0))
@@ -102,8 +106,10 @@ class SongManager: ObservableObject {
                                 let curDuration = self.recommendSongs.map { Int($0.duration) }.reduce(0, +)
                                 
                                 if abs(duration - (curDuration + songDuration)) <= abs(duration - curDuration) {
-                                    self.recommendSongs.append(Song(title: song.title, duration: songDuration, url: song.url))
-                                    print("Current Duration: \(curDuration + songDuration)")
+                                    if let song_id = song.id {
+                                        self.recommendSongs.append(Song(id: song_id, title: song.title, duration: songDuration, url: song.url))
+                                        print("Current Duration: \(curDuration + songDuration)")
+                                    }
                                 }
                             }
                             
@@ -114,6 +120,7 @@ class SongManager: ObservableObject {
         }
         print("Finish geralize recommend song list.")
         print("Recommend Song List: \(self.recommendSongs)")
+        completion()
     }
     
     func ClassifyMood(_ input: MLMultiArray) -> MoodCNNClassifierOutput? {
@@ -141,10 +148,11 @@ class SongManager: ObservableObject {
 }
 
 struct Song: Codable, Identifiable {
-    @DocumentID var id: String?
+    var id: String
     var title: String
     var duration: Int
     var url: String
+    var isFavorite : Bool = false
 }
 
 struct SongData: Codable, Identifiable {
@@ -199,22 +207,22 @@ enum Occasion: String, CaseIterable {
     case awards = "awards"
     case coffee = "coffee"
     case company = "company"
-    case wedding = "wedding"
     case gathering = "gathering"
     case graduation = "graduation"
     case seminar = "seminar"
     case sports = "sports"
+    case wedding = "wedding"
     
     func text() -> String {
         switch self {
         case .awards: return "頒獎典禮"
         case .coffee: return "咖啡廳"
         case .company: return "公司活動"
-        case .wedding: return "婚禮"
         case .gathering: return "聚會"
         case .graduation: return "畢業典禮"
         case .seminar: return "講座"
         case .sports: return "運動會"
+        case .wedding: return "婚禮"
 
         }
     }
@@ -224,36 +232,36 @@ enum Occasion: String, CaseIterable {
         case .awards: return 0
         case .coffee: return 1
         case .company: return 2
-        case .wedding: return 3
-        case .gathering: return 4
-        case .graduation: return 5
-        case .seminar: return 6
-        case .sports: return 7
+        case .gathering: return 3
+        case .graduation: return 4
+        case .seminar: return 5
+        case .sports: return 6
+        case .wedding: return 7
 
         }
     }
 }
 
 enum Mood: String, CaseIterable {
+    case calm = "calm"
     case energetic = "energetic"
     case happy = "happy"
-    case calm = "calm"
     case sad = "sad"
     
     func text() -> String {
         switch self{
+        case .calm: return "平靜"
         case .energetic: return "活力"
         case .happy: return "開心"
-        case .calm: return "平靜"
         case .sad: return "悲傷"
         }
     }
     
     func identity() -> Int {
         switch self{
-        case .energetic: return 0
-        case .happy: return 1
-        case .calm: return 2
+        case .calm: return 0
+        case .energetic: return 1
+        case .happy: return 2
         case .sad: return 3
         }
     }

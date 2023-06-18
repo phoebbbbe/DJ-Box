@@ -9,9 +9,14 @@ import SwiftUI
 
 struct FilterView: View {
     @EnvironmentObject var songManager: SongManager
+    @EnvironmentObject var songListManager: SongListManager
     
     @State private var searchText = ""
-    @State private var isSearching = false
+    
+    @State private var isFiltering = false
+    @State private var showLoadingView = false
+    @State private var showFinishView = false
+    @State private var showMenu: Bool = false
     
     @State private var selectedOccasion: Occasion?
     @State private var selectedMood: Mood?
@@ -21,9 +26,6 @@ struct FilterView: View {
     @State private var selectedSecond = 0
     @State private var selectedReset = 0
     @State private var selectedNext = 0
-    
-    @State private var showLoadingView = false
-    @State private var showMenu: Bool = false
     
     @State var offset: CGFloat = 0
     @State var lastStoredoffset: CGFloat = 0
@@ -184,15 +186,9 @@ struct FilterView: View {
                         })
 
                         VStack {
-                            NavigationLink {
-//                                selectedDurasion = (selectedHour*3600)+(selectedMinute*60)+selectedSecond
-                                
-//                                    songManager.FilterSongs(
-//                                        occasion: selectedOccasion ?? Occasion.wedding,
-//                                        mood: selectedMood ?? Mood.happy,
-//                                        duration: selectedDurasion)
-                                LoadingView()
-                                    .environmentObject(SongManager())
+                            Button {
+                                isFiltering = true
+                                showLoadingView = true
                             } label: {
                                 Text("儲存")
                                     .font(.system(size: 20))
@@ -204,12 +200,52 @@ struct FilterView: View {
                                     .background(self.djboxGradient)
                                     .cornerRadius(30)
                                     .frame(width: 148, height: 56)
-                                
                             }
+                            
+                            NavigationLink(
+                                destination:
+                                    LoadingView()
+                                        .onAppear {
+                                            selectedDurasion = (selectedHour * 3600)+(selectedMinute * 60)+selectedSecond
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) {
+                                                songManager.FilterSongs(
+                                                    occasion: selectedOccasion ?? Occasion.wedding,
+                                                    mood: selectedMood ?? Mood.happy,
+                                                    duration: selectedDurasion) {
+                                                        isFiltering = false
+                                                        showLoadingView = false
+                                                        showFinishView = true
+                                                        
+                                                        selectedOccasion = nil
+                                                        selectedMood = nil
+                                                        selectedHour = 0
+                                                        selectedMinute = 0
+                                                        selectedSecond = 0
+                                                    }
+                                            }
+                                            
+                                        },
+                                isActive: $showLoadingView
+                            ) {
+                                EmptyView()
+                            }
+                            .hidden()
+                            
+                            NavigationLink(
+                                destination:
+                                    ListView()
+                                        .environmentObject(songManager)
+                                        .environmentObject(songListManager),
+                                isActive: $showFinishView
+                            ) {
+                                EmptyView()
+                            }
+                            .hidden()
                         }
                         .navigationBarHidden(true)
                     }
                 }
+            
                 GeometryReader{ _ in
                     HStack{
                         SideMenu(showMenu: $showMenu)
@@ -226,12 +262,6 @@ struct FilterView: View {
             
         }
         .navigationBarBackButtonHidden(true)
-//        .background(
-//            NavigationLink(destination: LoadingView(), isActive: $showLoadingView) {
-//                EmptyView()
-//            }
-//            .hidden()
-//        )
         
     }
 }
@@ -285,5 +315,6 @@ struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
         FilterView()
             .environmentObject(SongManager())
+            .environmentObject(SongListManager())
     }
 }

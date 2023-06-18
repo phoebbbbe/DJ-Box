@@ -14,7 +14,8 @@ import CoreGraphics
 class SongListManager: ObservableObject {
     @Published var songLists: [SongList] = []
     @Published var youtubeList: [YoutubeSong] = [] //內容變更時需要重新載入的參數
-
+    var maxSongNum = 6
+    
     init() {
         GetSongLists()
         FetchYoutubeList()
@@ -32,18 +33,18 @@ class SongListManager: ObservableObject {
         }
     }
     
-    func AddSongList(list: SongList) {
+    func AddSongList(songlist: SongList) {
         
         let db = Firestore.firestore()
-        var newList = list
         
         do {
-            let documentReference = try db.collection("songlists").addDocument(from: newList)
+            let documentReference = try db.collection("songlists").addDocument(from: songlist)
             print(documentReference.documentID)
             
             self.GetSongLists()
         } catch {
             print(error)
+            fatalError("ERROR: cant't add song list.")
         }
     }
     
@@ -83,7 +84,6 @@ class SongListManager: ObservableObject {
         }
     }
 
-    
 }
 
 struct SongList: Codable, Identifiable {
@@ -93,7 +93,6 @@ struct SongList: Codable, Identifiable {
     var item: String = "ColorFigure01"
     var offset_x: Float = 110.0
     var offset_y: Float = 80.0
-    var youtube_id: String = ""
     
 }
 
@@ -123,6 +122,7 @@ enum CircleItem: String, CaseIterable {
         case .item_six: return CGPoint(x: -110.0, y: -80.0)
         }
     }
+    
 }
 
 struct SearchResponse: Codable {
