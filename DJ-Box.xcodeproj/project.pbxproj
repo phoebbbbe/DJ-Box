@@ -20,6 +20,7 @@
 		CD17ABDB2A3980ED00245F58 /* SongListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ABDA2A3980ED00245F58 /* SongListManager.swift */; };
 		CD17ABDD2A3987CC00245F58 /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ABDC2A3987CC00245F58 /* Title.swift */; };
 		CD22821A2A403FCE006DDD73 /* MysongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2282192A403FCE006DDD73 /* MysongView.swift */; };
+		CD22821C2A4047C5006DDD73 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD22821B2A4047C5006DDD73 /* SettingView.swift */; };
 		CDB0F3EB2A1DA7BC0055858B /* DJ_BoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0F3EA2A1DA7BC0055858B /* DJ_BoxApp.swift */; };
 		CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */; };
 		CDB0F3EF2A1DA7BD0055858B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		CD17ABDA2A3980ED00245F58 /* SongListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListManager.swift; sourceTree = "<group>"; };
 		CD17ABDC2A3987CC00245F58 /* Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		CD2282192A403FCE006DDD73 /* MysongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MysongView.swift; sourceTree = "<group>"; };
+		CD22821B2A4047C5006DDD73 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		CDB0F3E72A1DA7BC0055858B /* DJ-Box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DJ-Box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB0F3EA2A1DA7BC0055858B /* DJ_BoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJ_BoxApp.swift; sourceTree = "<group>"; };
 		CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				7098D4E82A2E070B00E8AE54 /* ListView.swift */,
 				701A72CB2A3D666D00804D72 /* MylistView.swift */,
 				CD2282192A403FCE006DDD73 /* MysongView.swift */,
+				CD22821B2A4047C5006DDD73 /* SettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				CDC06B222A3036BD0071AD98 /* SongManager.swift in Sources */,
 				CD17ABD92A397E5E00245F58 /* SongListItem.swift in Sources */,
 				CD17ABDD2A3987CC00245F58 /* Title.swift in Sources */,
+				CD22821C2A4047C5006DDD73 /* SettingView.swift in Sources */,
 				CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */,
 				7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */,
 				7098D4E72A2DFC0D00E8AE54 /* SideMenu.swift in Sources */,
