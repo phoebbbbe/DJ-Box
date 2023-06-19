@@ -19,7 +19,7 @@ struct DJ_BoxApp: App {
         
     var body: some Scene {
         WindowGroup {
-            LoginView()
+//            LoginView()
 //            ContentView()
 //                .environmentObject(songManager)
 //            FilterView()
@@ -27,6 +27,9 @@ struct DJ_BoxApp: App {
 //            HomepageView()
 //                .environmentObject(songManager)
 //                .environmentObject(songListManager)
+
+            MylistView()
+                .environmentObject(songListManager)
             
         }
     }

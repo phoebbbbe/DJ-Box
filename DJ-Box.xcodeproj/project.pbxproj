@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		701A72CC2A3D666D00804D72 /* MylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701A72CB2A3D666D00804D72 /* MylistView.swift */; };
 		7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7039C4E42A2C887100126FB2 /* LoadingView.swift */; };
 		7060CBF02A32C5BF00F4ADE7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7060CBEF2A32C5BF00F4ADE7 /* User.swift */; };
 		708AA34C2A2088E500B80334 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA34B2A2088E500B80334 /* LoginView.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		701A72CB2A3D666D00804D72 /* MylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylistView.swift; sourceTree = "<group>"; };
 		7039C4E42A2C887100126FB2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		7060CBEF2A32C5BF00F4ADE7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		708AA34B2A2088E500B80334 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				708AA3BF2A20AFCE00B80334 /* HomepageView.swift */,
 				708AA3C12A20B01B00B80334 /* FilterView.swift */,
 				7098D4E82A2E070B00E8AE54 /* ListView.swift */,
+				701A72CB2A3D666D00804D72 /* MylistView.swift */,
 				7098D4E62A2DFC0D00E8AE54 /* SideMenu.swift */,
 				CD17ABDC2A3987CC00245F58 /* Title.swift */,
 				7039C4E42A2C887100126FB2 /* LoadingView.swift */,
@@ -202,6 +205,7 @@
 			files = (
 				708AA3C22A20B01B00B80334 /* FilterView.swift in Sources */,
 				708AA3C02A20AFCE00B80334 /* HomepageView.swift in Sources */,
+				701A72CC2A3D666D00804D72 /* MylistView.swift in Sources */,
 				708AA3BC2A20A41600B80334 /* SignupView.swift in Sources */,
 				CDD5F8E52A3817B600766A08 /* MoodCNNClassifier.mlmodel in Sources */,
 				CDD5F8DD2A36FC5000766A08 /* OccasionCNNClassifier.mlmodel in Sources */,
