@@ -193,7 +193,7 @@ struct menuLink: View {
         case "收藏歌單":
             return AnyView(HomepageView()) //再改成MylistView
         case "設定":
-            return AnyView(HomepageView()) //再改成settingView
+            return AnyView(SettingView()) 
         case "個人資料編輯":
             return AnyView(HomepageView()) //再改成settingView
         default:
