@@ -10,6 +10,8 @@ import Firebase
 
 @main
 struct DJ_BoxApp: App {
+    @StateObject var songManager = SongManager()
+    @StateObject var songListManager = SongListManager()
     
     init() {
             FirebaseApp.configure()
@@ -18,6 +20,14 @@ struct DJ_BoxApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
+//            ContentView()
+//                .environmentObject(songManager)
+//            FilterView()
+//                .environmentObject(songManager)
+//            HomepageView()
+//                .environmentObject(songManager)
+//                .environmentObject(songListManager)
+            
         }
     }
 }

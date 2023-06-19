@@ -3,27 +3,36 @@
 //  DJ-Box
 //
 //  Created by 曹芷瑜 on 2023/5/26.
-//
+//  Modify by 林寧 on 2023/6/12.
 
 import SwiftUI
 
 struct FilterView: View {
+    @EnvironmentObject var songManager: SongManager
+    @EnvironmentObject var songListManager: SongListManager
+    
     @State private var searchText = ""
-    @State private var isSearching = false
+    
+    @State private var isFiltering = false
+    @State private var showLoadingView = false
+    @State private var showFinishView = false
+    @State private var showMenu: Bool = false
+    
     @State private var selectedOccasion: Occasion?
     @State private var selectedMood: Mood?
+    @State private var selectedDurasion = 0
     @State private var selectedHour = 0
     @State private var selectedMinute = 0
     @State private var selectedSecond = 0
     @State private var selectedReset = 0
     @State private var selectedNext = 0
-    @State private var showLoadingView = false
-    @State private var showMenu: Bool = false
+    
     @State var offset: CGFloat = 0
     @State var lastStoredoffset: CGFloat = 0
     
     var body: some View {
         //let sideBarWidth = getRect().width - 90
+        
         NavigationView{
             ZStack {
                 Color(red: 23/255, green: 22/255, blue: 46/255)
@@ -47,9 +56,7 @@ struct FilterView: View {
                                     .padding()
                             }
                             
-                            
                         })
-                     
                         
                         VStack {
                             HStack(spacing: 20) {
@@ -67,20 +74,20 @@ struct FilterView: View {
                             .padding(/*@START_MENU_TOKEN@*/.trailing, 20.0/*@END_MENU_TOKEN@*/)
                         }
                     }
+                    
                     VStack {
                         HStack {
                             Text("場合")
-                            .bold()
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20.0)
+                                .bold()
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 20.0)
                             Spacer()
                         }
                         HStack {
                             OccasionButtonView(occasion: .wedding, selectedOccasion: $selectedOccasion)
                             OccasionButtonView(occasion: .gathering, selectedOccasion: $selectedOccasion)
-                            OccasionButtonView(occasion: .sports, selectedOccasion: $selectedOccasion)
-                            OccasionButtonView(occasion: .resturant, selectedOccasion: $selectedOccasion)
+                            OccasionButtonView(occasion: .coffee, selectedOccasion: $selectedOccasion)
                             
                             
                         }
@@ -102,8 +109,8 @@ struct FilterView: View {
                             Text("情緒")
                                 .bold()
                                 .font(.title)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20.0)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 20.0)
                             Spacer()
                         }
                         HStack {
@@ -119,13 +126,13 @@ struct FilterView: View {
                             Text("時長")
                                 .bold()
                                 .font(.title)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20.0)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 20.0)
                             Spacer()
                         }
                         HStack {
                             Picker("時", selection: $selectedHour) {
-                                ForEach(0..<24, id: \.self) { hour in
+                                ForEach(0..<3, id: \.self) { hour in
                                     Text("\(hour) h")
                                         .foregroundColor(.white)
                                 }
@@ -151,10 +158,11 @@ struct FilterView: View {
                         }
                     }
                     .padding()
-                    Text("Selected Time: \(selectedHour)時\(selectedMinute)分\(selectedSecond)秒")
-                    .font(.headline)
-                    .padding()
-                    .foregroundColor(.white)
+                    
+//                    Text("Selected Time: \(selectedHour)時\(selectedMinute)分\(selectedSecond)秒")
+//                        .font(.headline)
+//                        .padding()
+//                        .foregroundColor(.white)
                     
                     HStack{
                         Button(action: {
@@ -174,46 +182,86 @@ struct FilterView: View {
                                 .background(Color(red: 1, green: 1, blue: 1, opacity: 0.7))
                                 .cornerRadius(30)
                                 .frame(width: 148, height: 56)
-
+                            
                         })
-                        Button(action: {
-                            showLoadingView = true
-                        }, label: {
-                            Text("儲存")
-                                .font(.system(size: 20))
-                                .bold()
-                                .foregroundColor(.black)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .padding(.horizontal, 15)
-                                .background(self.djboxGradient)
-                                .cornerRadius(30)
-                                .frame(width: 148, height: 56)
 
-                        })
+                        VStack {
+                            Button {
+                                isFiltering = true
+                                showLoadingView = true
+                            } label: {
+                                Text("儲存")
+                                    .font(.system(size: 20))
+                                    .bold()
+                                    .foregroundColor(.black)
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                                    .padding(.horizontal, 15)
+                                    .background(self.djboxGradient)
+                                    .cornerRadius(30)
+                                    .frame(width: 148, height: 56)
+                            }
+                            
+                            NavigationLink(
+                                destination:
+                                    LoadingView()
+                                        .onAppear {
+                                            selectedDurasion = (selectedHour * 3600)+(selectedMinute * 60)+selectedSecond
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) {
+                                                songManager.FilterSongs(
+                                                    occasion: selectedOccasion ?? Occasion.wedding,
+                                                    mood: selectedMood ?? Mood.happy,
+                                                    duration: selectedDurasion) {
+                                                        isFiltering = false
+                                                        showLoadingView = false
+                                                        showFinishView = true
+                                                        
+                                                        selectedOccasion = nil
+                                                        selectedMood = nil
+                                                        selectedHour = 0
+                                                        selectedMinute = 0
+                                                        selectedSecond = 0
+                                                    }
+                                            }
+                                            
+                                        },
+                                isActive: $showLoadingView
+                            ) {
+                                EmptyView()
+                            }
+                            .hidden()
+                            
+                            NavigationLink(
+                                destination:
+                                    ListView()
+                                        .environmentObject(songManager)
+                                        .environmentObject(songListManager),
+                                isActive: $showFinishView
+                            ) {
+                                EmptyView()
+                            }
+                            .hidden()
+                        }
+                        .navigationBarHidden(true)
                     }
-}
+                }
+            
                 GeometryReader{ _ in
                     HStack{
                         SideMenu(showMenu: $showMenu)
-                            //.offset(x: showMenu ? 0: UIScreen.main.bounds.width)
-                            //.animation(.easeInOut(duration: 0.5), value: showMenu)
+                        //.offset(x: showMenu ? 0: UIScreen.main.bounds.width)
+                        //.animation(.easeInOut(duration: 0.5), value: showMenu)
                         Spacer()
-                            
-                        }
+                        
                     }
+                }
             }
             .onChange(of: showMenu) { newValue in
                 
             }
             
         }
-        .background(
-            NavigationLink(destination: LoadingView(), isActive: $showLoadingView) {
-                EmptyView()
-            }
-            .hidden()
-        )
+        .navigationBarBackButtonHidden(true)
         
     }
 }
@@ -226,7 +274,7 @@ struct OccasionButtonView: View {
         Button(action: {
             selectedOccasion = occasion
         }) {
-            Text(occasion.rawValue)
+            Text(occasion.text())
             .font(.headline)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
@@ -248,7 +296,7 @@ struct MoodButtonView: View {
         Button(action: {
             selectedMood = mood
         }) {
-            Text(mood.rawValue)
+            Text(mood.text())
                 .font(.headline)
                 .padding(.all, 14)
                 .foregroundColor(selectedMood == mood ? .black : .primary)
@@ -257,55 +305,16 @@ struct MoodButtonView: View {
         }
         .buttonStyle(PlainButtonStyle())
         .background(Color(red: 1, green: 1, blue: 1, opacity: 0.5))
-        //.background(.white)
         .cornerRadius(50)
         .shadow(radius: 4)
     }
 }
 
-/*struct ButtonView: View {
-    let reset: Reset
-    @Binding var selectedReset: Reset?
-    
-    var body: some View {
-        Button(action: {
-            selectedReset = Reset
-        }) {
-            Text(Reset.rawValue)
-                .font(.headline)
-                .padding(.all, 14)
-                .foregroundColor(selectedReset == Reset ? .black : .primary)
-                .background(selectedReset == Reset ? Color.white : Color.clear)
-                .cornerRadius(10)
-        }
-        .buttonStyle(PlainButtonStyle())
-        .background(Color(red: 1, green: 1, blue: 1, opacity: 0.5))
-        //.background(.white)
-        .cornerRadius(50)
-        .shadow(radius: 4)
-    }
-}*/
-
-enum Occasion: String, CaseIterable {
-    case wedding = "婚禮"
-    case awards = "頒獎典禮"
-    case graduation = "畢業典禮"
-    case gathering = "聚會"
-    case resturant = "餐廳"
-    case seminar = "講座"
-    case sports = "運動會"
-    case company = "公司活動"
-}
-
-enum Mood: String, CaseIterable {
-    case energetic = "活力"
-    case happy = "開心"
-    case calm = "平靜"
-    case sad = "悲傷"
-}
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
         FilterView()
+            .environmentObject(SongManager())
+            .environmentObject(SongListManager())
     }
 }

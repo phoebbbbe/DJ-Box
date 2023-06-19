@@ -96,27 +96,6 @@ struct SideMenu: View {
         }
     }
 
-   /*var MenuChevron: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 18)
-                .fill(bgColor)
-                .frame(width: 60, height: 60)
-                .rotationEffect(Angle(degrees: 45))
-                .offset(x: showMenu ? -18 : -10)
-                .onTapGesture {
-                    showMenu.toggle()
-                }
-
-           Image(systemName: "chevron.right")
-                .foregroundColor(secondaryColor)
-                .rotationEffect(showMenu ?
-                    Angle(degrees: 180) : Angle(degrees: 0))
-                .offset(x: showMenu ? -4 : 8)
-                .foregroundColor(.blue)
-        }
-        .offset(x: sideBarWidth / 2, y: 80)
-        .animation(.default, value: showMenu)
-    }*/
     
     var userProfile: some View {
         VStack(alignment: .leading) {
@@ -154,9 +133,9 @@ struct SideMenu: View {
         }
     }
 }
-
 struct MenuLinks: View {
     var items: [MenuItem]
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             ForEach(items) { item in
@@ -171,6 +150,10 @@ struct MenuLinks: View {
 struct menuLink: View {
     var icon: String
     var text: String
+    
+    @State private var showAlert = false
+    @State private var isActive = false
+    
     var body: some View {
         HStack {
             Image(systemName: icon)
@@ -178,17 +161,51 @@ struct menuLink: View {
                 .frame(width: 20, height: 20)
                 .foregroundColor(.white)
                 .padding(.trailing, 18)
-            Text(text)
-                .foregroundColor(.white)
-                .font(.body)
+            
+            Button(action: {
+                handleMenuItemTap()
+            }) {
+                Text(text)
+                    .foregroundColor(.white)
+                    .font(.body)
+            }
+            .fullScreenCover(isPresented: $isActive) {
+                destinationView(for: text)
+            }
         }
-        .onTapGesture {
-            print("Tapped on \(text)")
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("登出"),
+                message: Text("謝謝使用，您已登出！"),
+                dismissButton: .default(Text("確定"))
+            )
         }
     }
+    
+    private func handleMenuItemTap() {
+        isActive = true
+    }
+    
+    private func destinationView(for text: String) -> some View {
+        switch text {
+        case "主頁":
+            return AnyView(HomepageView())
+        case "收藏歌單":
+            return AnyView(HomepageView()) //再改成MylistView
+        case "設定":
+            return AnyView(HomepageView()) //再改成settingView
+        case "個人資料編輯":
+            return AnyView(HomepageView()) //再改成settingView
+        default:
+            return AnyView(EmptyView())
+        }
+    }
+}
+
+
     struct SideMenu_Previews: PreviewProvider {
         static var previews: some View {
             ContentView()
         }
     }
-}
+

@@ -16,15 +16,20 @@
 		708AA3C22A20B01B00B80334 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3C12A20B01B00B80334 /* FilterView.swift */; };
 		7098D4E72A2DFC0D00E8AE54 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098D4E62A2DFC0D00E8AE54 /* SideMenu.swift */; };
 		7098D4E92A2E070B00E8AE54 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098D4E82A2E070B00E8AE54 /* ListView.swift */; };
+		CD17ABD92A397E5E00245F58 /* SongListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ABD82A397E5E00245F58 /* SongListItem.swift */; };
+		CD17ABDB2A3980ED00245F58 /* SongListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ABDA2A3980ED00245F58 /* SongListManager.swift */; };
+		CD17ABDD2A3987CC00245F58 /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ABDC2A3987CC00245F58 /* Title.swift */; };
 		CDB0F3EB2A1DA7BC0055858B /* DJ_BoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0F3EA2A1DA7BC0055858B /* DJ_BoxApp.swift */; };
 		CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */; };
 		CDB0F3EF2A1DA7BD0055858B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */; };
 		CDB0F3F22A1DA7BD0055858B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB0F3F12A1DA7BD0055858B /* Preview Assets.xcassets */; };
-		CDC06B192A3029240071AD98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDC06B182A3029240071AD98 /* GoogleService-Info.plist */; };
 		CDC06B1C2A302FA10071AD98 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CDC06B1B2A302FA10071AD98 /* FirebaseAuth */; };
 		CDC06B1E2A302FA10071AD98 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDC06B1D2A302FA10071AD98 /* FirebaseFirestoreSwift */; };
 		CDC06B202A302FA10071AD98 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CDC06B1F2A302FA10071AD98 /* FirebaseStorage */; };
-		CDC06B222A3036BD0071AD98 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC06B212A3036BD0071AD98 /* Song.swift */; };
+		CDC06B222A3036BD0071AD98 /* SongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC06B212A3036BD0071AD98 /* SongManager.swift */; };
+		CDD5F8BD2A35BC6A00766A08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDD5F8BC2A35BC6A00766A08 /* GoogleService-Info.plist */; };
+		CDD5F8DD2A36FC5000766A08 /* OccasionCNNClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CDD5F8DC2A36FC5000766A08 /* OccasionCNNClassifier.mlmodel */; };
+		CDD5F8E52A3817B600766A08 /* MoodCNNClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CDD5F8E42A3817B600766A08 /* MoodCNNClassifier.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,13 +42,18 @@
 		708AA3C12A20B01B00B80334 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		7098D4E62A2DFC0D00E8AE54 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		7098D4E82A2E070B00E8AE54 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		CD17ABD82A397E5E00245F58 /* SongListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListItem.swift; sourceTree = "<group>"; };
+		CD17ABDA2A3980ED00245F58 /* SongListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListManager.swift; sourceTree = "<group>"; };
+		CD17ABDC2A3987CC00245F58 /* Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		CDB0F3E72A1DA7BC0055858B /* DJ-Box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DJ-Box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB0F3EA2A1DA7BC0055858B /* DJ_BoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJ_BoxApp.swift; sourceTree = "<group>"; };
 		CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CDB0F3F12A1DA7BD0055858B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CDC06B182A3029240071AD98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CDC06B212A3036BD0071AD98 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		CDC06B212A3036BD0071AD98 /* SongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongManager.swift; sourceTree = "<group>"; };
+		CDD5F8BC2A35BC6A00766A08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CDD5F8DC2A36FC5000766A08 /* OccasionCNNClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = OccasionCNNClassifier.mlmodel; sourceTree = "<group>"; };
+		CDD5F8E42A3817B600766A08 /* MoodCNNClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MoodCNNClassifier.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,11 +98,16 @@
 				708AA3C12A20B01B00B80334 /* FilterView.swift */,
 				7098D4E82A2E070B00E8AE54 /* ListView.swift */,
 				7098D4E62A2DFC0D00E8AE54 /* SideMenu.swift */,
+				CD17ABDC2A3987CC00245F58 /* Title.swift */,
 				7039C4E42A2C887100126FB2 /* LoadingView.swift */,
 				CDB0F3EC2A1DA7BC0055858B /* ContentView.swift */,
-				CDC06B212A3036BD0071AD98 /* Song.swift */,
+				CDC06B212A3036BD0071AD98 /* SongManager.swift */,
+				CD17ABDA2A3980ED00245F58 /* SongListManager.swift */,
+				CD17ABD82A397E5E00245F58 /* SongListItem.swift */,
+				CDD5F8E42A3817B600766A08 /* MoodCNNClassifier.mlmodel */,
+				CDD5F8DC2A36FC5000766A08 /* OccasionCNNClassifier.mlmodel */,
+				CDD5F8BC2A35BC6A00766A08 /* GoogleService-Info.plist */,
 				CDB0F3EE2A1DA7BD0055858B /* Assets.xcassets */,
-				CDC06B182A3029240071AD98 /* GoogleService-Info.plist */,
 				CDB0F3F02A1DA7BD0055858B /* Preview Content */,
 			);
 			path = "DJ-Box";
@@ -174,7 +189,7 @@
 			files = (
 				CDB0F3F22A1DA7BD0055858B /* Preview Assets.xcassets in Resources */,
 				CDB0F3EF2A1DA7BD0055858B /* Assets.xcassets in Resources */,
-				CDC06B192A3029240071AD98 /* GoogleService-Info.plist in Resources */,
+				CDD5F8BD2A35BC6A00766A08 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,8 +203,12 @@
 				708AA3C22A20B01B00B80334 /* FilterView.swift in Sources */,
 				708AA3C02A20AFCE00B80334 /* HomepageView.swift in Sources */,
 				708AA3BC2A20A41600B80334 /* SignupView.swift in Sources */,
+				CDD5F8E52A3817B600766A08 /* MoodCNNClassifier.mlmodel in Sources */,
+				CDD5F8DD2A36FC5000766A08 /* OccasionCNNClassifier.mlmodel in Sources */,
 				708AA34C2A2088E500B80334 /* LoginView.swift in Sources */,
-				CDC06B222A3036BD0071AD98 /* Song.swift in Sources */,
+				CDC06B222A3036BD0071AD98 /* SongManager.swift in Sources */,
+				CD17ABD92A397E5E00245F58 /* SongListItem.swift in Sources */,
+				CD17ABDD2A3987CC00245F58 /* Title.swift in Sources */,
 				CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */,
 				7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */,
 				7098D4E72A2DFC0D00E8AE54 /* SideMenu.swift in Sources */,
@@ -197,6 +216,7 @@
 				7098D4E92A2E070B00E8AE54 /* ListView.swift in Sources */,
 				708AA3BE2A20A49400B80334 /* ThemeView.swift in Sources */,
 				CDB0F3EB2A1DA7BC0055858B /* DJ_BoxApp.swift in Sources */,
+				CD17ABDB2A3980ED00245F58 /* SongListManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
