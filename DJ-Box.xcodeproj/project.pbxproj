@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		701A72CC2A3D666D00804D72 /* MylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701A72CB2A3D666D00804D72 /* MylistView.swift */; };
 		7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7039C4E42A2C887100126FB2 /* LoadingView.swift */; };
-		7060CBF02A32C5BF00F4ADE7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7060CBEF2A32C5BF00F4ADE7 /* User.swift */; };
+		7060CBF02A32C5BF00F4ADE7 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7060CBEF2A32C5BF00F4ADE7 /* UserManager.swift */; };
 		708AA34C2A2088E500B80334 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA34B2A2088E500B80334 /* LoginView.swift */; };
 		708AA3BC2A20A41600B80334 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3BB2A20A41600B80334 /* SignupView.swift */; };
 		708AA3C02A20AFCE00B80334 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AA3BF2A20AFCE00B80334 /* HomepageView.swift */; };
@@ -35,7 +35,7 @@
 /* Begin PBXFileReference section */
 		701A72CB2A3D666D00804D72 /* MylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylistView.swift; sourceTree = "<group>"; };
 		7039C4E42A2C887100126FB2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		7060CBEF2A32C5BF00F4ADE7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7060CBEF2A32C5BF00F4ADE7 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		708AA34B2A2088E500B80334 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		708AA3BB2A20A41600B80334 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		708AA3BF2A20AFCE00B80334 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 		CDEE55422A3FE8E300B6DE3C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				7060CBEF2A32C5BF00F4ADE7 /* User.swift */,
+				7060CBEF2A32C5BF00F4ADE7 /* UserManager.swift */,
 				CDC06B212A3036BD0071AD98 /* SongManager.swift */,
 				CD17ABDA2A3980ED00245F58 /* SongListManager.swift */,
 			);
@@ -237,7 +237,7 @@
 				CDB0F3ED2A1DA7BC0055858B /* ContentView.swift in Sources */,
 				7039C4E52A2C887100126FB2 /* LoadingView.swift in Sources */,
 				7098D4E72A2DFC0D00E8AE54 /* SideMenu.swift in Sources */,
-				7060CBF02A32C5BF00F4ADE7 /* User.swift in Sources */,
+				7060CBF02A32C5BF00F4ADE7 /* UserManager.swift in Sources */,
 				7098D4E92A2E070B00E8AE54 /* ListView.swift in Sources */,
 				CDB0F3EB2A1DA7BC0055858B /* DJ_BoxApp.swift in Sources */,
 				CD17ABDB2A3980ED00245F58 /* SongListManager.swift in Sources */,
