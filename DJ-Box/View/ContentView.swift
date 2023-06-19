@@ -8,25 +8,31 @@
 import SwiftUI
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 struct ContentView: View {
+    @EnvironmentObject var user: UserManager
     @EnvironmentObject var songManager: SongManager
+    @EnvironmentObject var songListManager: SongListManager
 
     var body: some View {
-        ZStack {
-            Color(red: 23/255, green: 22/255, blue: 46/255)
-               .ignoresSafeArea()
-            /* Test Firebase - Read data */
-            Text("Hello World")
-                .foregroundColor(.white)
+        if user.userIsLoggedin {
+            HomepageView()
+                .environmentObject(songManager)
+                .environmentObject(songListManager)
+                
+        } else {
+            LoginView()
+                .environmentObject(user)
         }
     }
 }
 
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(UserManager())
             .environmentObject(SongManager())
+            .environmentObject(SongListManager())
     }
 }
