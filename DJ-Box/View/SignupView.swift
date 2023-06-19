@@ -8,16 +8,22 @@
 import SwiftUI
 
 struct SignupView: View {
-    @StateObject var user = User()
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
+    @EnvironmentObject var user: UserManager
+    @EnvironmentObject var songManager: SongManager
+    @EnvironmentObject var songListManager: SongListManager
+    
+    @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
-    @State private var showAlert = false
-    @State private var navigateToLogin = false
+    
+    @State private var showOKAlert = false
+    @State private var showERRORAlert = false
+    @State private var errorAlertText = ""
+    
+    @State private var showHomeView = false
       
     var body: some View {
-        NavigationView{
+        NavigationView {
             ZStack {
                 Color(red: 23/255, green: 22/255, blue: 46/255)
                     .ignoresSafeArea()
@@ -29,102 +35,100 @@ struct SignupView: View {
                         .foregroundColor(.white)
                         .padding(.top,180)
                     
-                    HStack{
-                        VStack {
-                            Text("First Name")
+                    VStack {
+                        VStack(alignment: .leading) {
+                            Text("Name")
+                                .font(.headline)
                                 .foregroundColor(.white)
-                                .padding(.trailing,50)
-                            TextField("", text: $firstName)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .frame(width: 150, height: 40)
-                                .background(Color.white.opacity(0.3))
-                                .cornerRadius(12)
+                            TextField("", text: $name)
+                            .foregroundColor(.white)
+                            .padding(.all)
+                            .background(Color.white.opacity(0.3))
+                            .cornerRadius(10)
                         }
                         .padding()
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Email")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                TextField("", text: $email)
+                                .foregroundColor(.white)
+                                .padding(.all)
+                                .background(Color.white.opacity(0.3))
+                                .cornerRadius(10)
+                            }
+                            .padding()
+                            
+                            VStack(alignment: .leading) {
+                                Text("Password")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                SecureField("", text: $password)
+                                .foregroundColor(.white)
+                                .padding(.all)
+                                .background(Color.white.opacity(0.3))
+                                .cornerRadius(10)
+                            }
+                            .padding()
+                        }
                         
-                        VStack {
-                            Text("Last Name")
-                                .foregroundColor(.white)
-                                .padding(.trailing,50)
-                            TextField("", text: $lastName)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .frame(width: 150, height: 40)
-                                .background(Color.white.opacity(0.3))
-                                .cornerRadius(12)
-                        }
-                        .padding()
                     }
-                   
-                    HStack{
-                        VStack {
-                            Text("Email")
-                                .foregroundColor(.white)
-                                .padding(.trailing,90)
-                            TextField("", text: $email)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .frame(width: 150, height: 40)
-                                .background(Color.white.opacity(0.3))
-                                .cornerRadius(12)
-                        }
-                        .padding()
-                        
-                        VStack {
-                            Text("Password")
-                                .padding(.trailing,50)
-                                .foregroundColor(.white)
-                            SecureField("", text: $password)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .frame(width: 150, height: 40)
-                                .background(Color.white.opacity(0.3))
-                                .cornerRadius(12)
-                        }
-                        .padding()
-                    }
-                
                     
-                    Button(action: {
-                        //showAlert = true
-                        user.register(email: email, password: password)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            navigateToLogin = true
+                    Button() {
+                        Task {
+                            do {
+                                try await user.SignUp(email: email, password: password)
+                                showOKAlert = true
+                            } catch {
+                                showERRORAlert = true
+                                errorAlertText = error.localizedDescription
+                            }
                         }
-                    }) {
+                    } label: {
                         Text("Sign up")
                             .fontWeight(.medium)
                             .font(.title3)
                             .foregroundColor(.black)
-                            .frame(width: 74.93, alignment: .topLeading)
-                            .padding(.vertical, 13)
-                            //.padding(.leading, 136)
-                            //.padding(.trailing, 135)
                             .frame(width: 346, height: 50)
                             .background(djboxGradient)
                             .cornerRadius(15)
-                            .frame(width: 346, height: 50)
                     }
                     .padding()
-                    NavigationLink(destination: LoginView(), isActive: $navigateToLogin) { EmptyView() }
-                    .alert(isPresented: $showAlert) {
-                       Alert(title: Text("註冊成功"), message: Text("歡迎您成為DJ BOX的一員🎶"), dismissButton: .default(Text("確定")))
-                    }
-
+                    .alert(errorAlertText, isPresented: $showERRORAlert, actions: {
+                        Button("再試一次") { }
+                    })
+                    .alert("註冊成功!歡迎您成為DJ BOX的一員🎶", isPresented: $showOKAlert, actions: {
+                        Button("確定") {
+                            showHomeView = true
+                        }
+                    })
                     
-
+                    NavigationLink(
+                        destination:
+                            HomepageView()
+                                .environmentObject(songManager)
+                                .environmentObject(songListManager),
+                        isActive: $showHomeView
+                    ) {
+                        EmptyView()
+                    }
+                    .hidden()
                     
                     Spacer()
                 }
             }
             
         }
+        .navigationBarBackButtonHidden(true)
        
     }
 }
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
         SignupView()
+            .environmentObject(UserManager())
+            .environmentObject(SongManager())
+            .environmentObject(SongListManager())
     }
 }

@@ -69,6 +69,7 @@ struct HomepageView: View {
             }
             
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
