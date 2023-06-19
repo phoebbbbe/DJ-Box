@@ -31,6 +31,32 @@ class SongManager: ObservableObject {
         }
     }
     
+    func GetSong(song_id: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+        
+        let db = Firestore.firestore()
+        let documentRef = db.collection("songs").document(song_id)
+
+        documentRef.getDocument { (document, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let document = document, document.exists {
+                if let data = document.data() {
+                    completion(.success(data))
+                } else {
+                    let error = NSError(domain: "Firebase", code: -1, userInfo: [NSLocalizedDescriptionKey: "Data does not exist"])
+                    completion(.failure(error))
+                }
+            } else {
+                let error = NSError(domain: "Firebase", code: -1, userInfo: [NSLocalizedDescriptionKey: "Document does not exist"])
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
     func FilterSongs(occasion: Occasion, mood: Mood, duration: Int, completion: @escaping () -> Void) {
         print(occasion.rawValue)
         print(mood.rawValue)
@@ -148,11 +174,10 @@ class SongManager: ObservableObject {
 }
 
 struct Song: Codable, Identifiable {
-    var id: String
-    var title: String
-    var duration: Int
-    var url: String
-    var isFavorite : Bool = false
+    var id: String = ""
+    var title: String = ""
+    var duration: Int = 0
+    var url: String = ""
 }
 
 struct SongData: Codable, Identifiable {

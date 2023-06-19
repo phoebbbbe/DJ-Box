@@ -11,19 +11,20 @@ import FirebaseFirestoreSwift
 import FirebaseAuth
 
 struct ContentView: View {
-    @EnvironmentObject var user: UserManager
+    @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var songManager: SongManager
     @EnvironmentObject var songListManager: SongListManager
 
     var body: some View {
-        if user.userIsLoggedin {
+        if userManager.userIsLoggedin {
             HomepageView()
+                .environmentObject(userManager)
                 .environmentObject(songManager)
                 .environmentObject(songListManager)
                 
         } else {
             LoginView()
-                .environmentObject(user)
+                .environmentObject(userManager)
         }
     }
 }

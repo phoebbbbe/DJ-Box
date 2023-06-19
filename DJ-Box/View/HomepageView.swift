@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomepageView: View {
+    @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var songManager: SongManager
     @EnvironmentObject var songListManager: SongListManager
     
@@ -22,8 +23,10 @@ struct HomepageView: View {
                     ZStack {
                         ForEach(songListManager.songLists) { list in
                             NavigationLink {
-                                ListView()
+                                MysongView(songList: list)
+                                    .environmentObject(userManager)
                                     .environmentObject(songManager)
+                                    .environmentObject(songListManager)
                             } label: {
                                 SongListItem(listItem: list)
                             }
@@ -34,7 +37,9 @@ struct HomepageView: View {
                         VStack {
                             NavigationLink {
                                 FilterView()
+//                                    .environmentObject(userManager)
                                     .environmentObject(songManager)
+                                    .environmentObject(songListManager)
                             } label: {
                                 ZStack {
                                     Circle()
@@ -76,6 +81,7 @@ struct HomepageView: View {
 struct HomepageView_Previews: PreviewProvider {
     static var previews: some View {
         HomepageView()
+            .environmentObject(UserManager())
             .environmentObject(SongManager())
             .environmentObject(SongListManager())
     }

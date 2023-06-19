@@ -37,6 +37,7 @@ struct SongListItem: View {
                 Text(listItem.name)
                     .font(.headline)
                     .foregroundColor(.white)
+                    .background(Color(red: 23/255, green: 22/255, blue: 46/255))
                     .padding(.horizontal)
                     .offset(x:0, y:65)
             }
